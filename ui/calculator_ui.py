@@ -177,7 +177,7 @@ class CalculatorUI(QMainWindow):
         buttons_layout.setSpacing(8)
 
         buttons = [
-            'C', '+/-', '√', '%',
+            'C', '(', ')', '^',
             '7', '8', '9', '÷',
             '4', '5', '6', '×',
             '1', '2', '3', '-',
@@ -207,7 +207,7 @@ class CalculatorUI(QMainWindow):
 
 
     def button_style(self, btn_text):
-        if btn_text in ['C', '+/-', '√', '%']:
+        if btn_text in ['C', '(', ')', '^']:
             return "background-color: #555; color: white; border-radius: 15px;"
         elif btn_text in ['÷', '×', '-', '+', '=']:
             return "background-color: #ff9500; color: white; border-radius: 15px;"
@@ -224,16 +224,6 @@ class CalculatorUI(QMainWindow):
             except Exception as e:
                 error = Error()
                 error.show_error_message(e)
-        elif button_text == '+/-':
-            match = re.search(r"([-]?\d*\.?\d+)$", text)
-            if match:
-                number = match.group(1)
-                start, end = match.span(1)
-                if number.startswith("-"):
-                    new_number = number[1:]
-                else:
-                    new_number = "-" + number
-                self.display.setText(text[:int(start)] + new_number)
         elif button_text == 'C':
             self.display.setText('')
         else:
